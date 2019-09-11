@@ -1,6 +1,8 @@
 _author__ = '芜疆'
 #encoding=utf-8
-from selenium import webdriver
+from selenium.webdriver.common.by import  By
+from selenium.webdriver.support import  expected_conditions as EC
+from  selenium.webdriver.support.ui import WebDriverWait
 
 #封装定位方式
 class BasePage:
@@ -8,36 +10,43 @@ class BasePage:
         self.driver=driver
         self.url=url
 
+    #封装定位方式
     def find_element(self,key):
          by = key.split(':')[0]
          by_value = key.split(":")[1]
          try:
             if by=='id':
-                return self.driver.find_element_by_id(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.ID,by_value)))
             elif by=='name':
-                return self.driver.find_element_by_name(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.NAME,by_value)))
             elif by=="classname":
-                return self.driver.find_element_by_class_name(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.CLASS_NAME,by_value)))
             elif by=="xpath":
-                return self.driver.find_element_by_xpath(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.XPATH,by_value)))
             elif by=="css":
-                return self.driver.find_element_by_css_selector(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.CSS_SELECTOR,by_value)))
             elif by=="linkname":
-                return self.driver.find_element_by_link_name(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.LINK_TEXT,by_value)))
             elif by=="linktext":
-                return self.driver.find_element_by_link_text(by_value)
+                return WebDriverWait(self.driver,5,0.5).until(EC.presence_of_element_located((By.PARTIAL_LINK_TEXT,by_value)))
             else:
                 raise Exception("没有这种定位方式")
          except Exception as e:
              raise e
+
+    #打开浏览器
     def open_bbrowser(self):
         self.driver.get(self.url)
-
+    #点击元素
     def click_element(self,element):
         element.click()
-
+    #元素输入
     def sendkey_element(self,element,values):
         element.send_keys(values)
+    #获取元素的值
+    def get_element_value(self,element):
+        return element.text
+
 
 
 

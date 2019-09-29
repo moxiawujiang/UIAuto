@@ -8,7 +8,10 @@ from  selenium.webdriver.support.ui import WebDriverWait
 class BasePage:
     def __init__(self,driver,url):
         self.driver=driver
-        self.url=url
+        if url==None:
+            self.url='http://172.16.63.20/dashboard/auth/login/'
+        else:
+            self.url=url
 
     #封装定位方式
     def find_element(self,key):
@@ -35,7 +38,7 @@ class BasePage:
              raise e
 
     #打开浏览器
-    def open_bbrowser(self):
+    def open_browser(self):
         self.driver.get(self.url)
     #点击元素
     def click_element(self,element):

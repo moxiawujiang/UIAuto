@@ -28,7 +28,7 @@ class LoginTest(unittest.TestCase):
 
     def test_login002(self):
         '''admin用户登录成功'''
-        LoginPage(self.driver).login('admin','longyuan!')
+        LoginPage(self.driver).login('admin','')
         #校验登录后的用户名
         HomePage(self.driver).check_username('admin')
         #校验登录后没有控制台权限

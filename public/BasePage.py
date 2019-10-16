@@ -9,7 +9,7 @@ class BasePage:
     def __init__(self,driver,url):
         self.driver=driver
         if url==None:
-            self.url='http://172.16.63.20/dashboard/auth/login/'
+            self.url='http://test/auth/login/'
         else:
             self.url=url
 

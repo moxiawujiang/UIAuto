@@ -1,6 +1,6 @@
 __author__ = '芜疆'
 #coding=utf-8
-
+import time
 import unittest
 import HTMLReport
 import os
@@ -18,8 +18,9 @@ def create_my_suit():
     return my_suit
 
 if __name__ == '__main__':
+    time=time.strftime("%y-%m-%d %H-%M-%S")
     mysuit=create_my_suit()
-    runner = HTMLReport.TestRunner(report_file_name='report',
+    runner = HTMLReport.TestRunner(report_file_name='report'+time,
                                    output_path='report',
                                    title='测试报告',
                                    description='测试描述',

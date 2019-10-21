@@ -1,5 +1,6 @@
 #coding=utf-8
 __author__ = 'wujiang'
+from selenium import webdriver
 import unittest
 from ddt  import *
 from public.BasePage import BasePage
@@ -12,10 +13,11 @@ from  public.public import get_screen_in_case_end_or_error
 class LoginTest(unittest.TestCase):
     '''登录测试'''
     def  setUp(self):
-        self.driver =BasePage().driver
+        self.driver =webdriver.Chrome()
         self.driver.maximize_window()
         self.driver.implicitly_wait(5)
-        BasePage().visit_url()
+        BasePage(self.driver).visit_url()
+
     def tearDown(self) :
         self.driver.quit()
 
@@ -25,20 +27,21 @@ class LoginTest(unittest.TestCase):
     @get_screen_in_case_end_or_error
     def test_login001(self,username,password):
         self._testMethodDoc='''普通用户登录成功'''
-        LoginPage().login(username,password)
+        LoginPage(self.driver).login(username,password)
         #校验登录后的用户名
-        HomePage().check_username(username)
+        HomePage(self.driver).check_username(username)
         #校验登录后没有控制台权限
-        HomePage().check_user_auth(2)
+        HomePage(self.driver).check_user_auth(2)
+
 
     @get_screen_in_case_end_or_error
     def test_login002(self):
         self._testMethodDoc='''admin用户登录成功'''
-        LoginPage().login('admin','admin')
+        LoginPage(self.driver).login('admin','longyuan!')
         #校验登录后的用户名
-        HomePage().check_username('admin')
+        HomePage(self.driver).check_username('admin')
         #校验登录后没有控制台权限
-        HomePage().check_user_auth(1)
+        HomePage(self.driver).check_user_auth(1)
 
 
     @data((123456,123456),("user002",'123456'))
@@ -46,19 +49,19 @@ class LoginTest(unittest.TestCase):
     @get_screen_in_case_end_or_error
     def test_login003(self,username,password):
         self._testMethodDoc='''登录失败'''
-        LoginPage().login(username, password)
+        LoginPage(self.driver).login(username, password)
         #校验存在登录失败的提示信息
-        LoginPage().check_exist_failmsg()
+        LoginPage(self.driver).check_exist_failmsg()
 
     @get_screen_in_case_end_or_error
     def test_loginout(self):
         self._testMethodDoc='''退出登录'''
         #用户登录
-        LoginPage().login('user002', 'user003')
+        LoginPage(self.driver).login('user002', 'user003')
         #用户退出
-        HomePage().loginout()
+        HomePage(self.driver).loginout()
         #检查是否在登录页面
-        LoginPage().check_isloginpage()
+        LoginPage(self.driver).check_isloginpage()
 
 
 if __name__ == '__main__':

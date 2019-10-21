@@ -6,14 +6,9 @@ from  selenium.webdriver.support.ui import WebDriverWait
 from  unittest import TestCase
 from selenium import webdriver
 
-#封装定位方式
 class BasePage:
-    def __init__(self,browser='chrome'):
-        if browser == "chrome":
-            self.driver = webdriver.Chrome()
-        else:
-            self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(5)
+    def __init__(self,driver):
+        self.driver =driver
 
     #封装定位方式
     def find_element(self,key):
@@ -38,7 +33,6 @@ class BasePage:
                 raise Exception("没有这种定位方式")
          except Exception as e:
              raise e
-
     def  find_elements(self,key):
         by = key.split(':')[0]
         by_value = key.split(":")[1]
@@ -56,11 +50,10 @@ class BasePage:
         except Exception as e:
             raise e
 
-
     #打开网址
     def visit_url(self,url=None):
         if url==None:
-            url='........'
+            url='http://172.16.63.20/dashboard/auth/login/'
         else:
             url=url
         self.driver.get(url)

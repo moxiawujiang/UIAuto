@@ -1,7 +1,6 @@
 #coding=utf-8
 __author__ = 'wujiang'
 from public.BasePage import BasePage
-from  unittest import TestCase
 
 #继承于Basepage
 class LoginPage(BasePage):
@@ -10,8 +9,6 @@ class LoginPage(BasePage):
     _password="name:password"
     _login_botton="xpath://input[@value='登入']"
 
-    def __init__(self,driver,url=None):
-        BasePage.__init__(self,driver,url)
 
     '''
     元素定位层
@@ -45,7 +42,6 @@ class LoginPage(BasePage):
     '''
     #封装登录流程
     def login(self,username,password):
-        self.open_browser() #打开浏览器
         self.sendkey_username(username) #输入用户名
         self.sendkey_password(password) #输入密码
         self.click_login_button() # 点击登录按钮
@@ -54,13 +50,13 @@ class LoginPage(BasePage):
     def check_isloginpage(self):
         list = ["用户名", '密码', '登入']
         for text in  list:
-            TestCase().assertTrue(text in self.driver.page_source)
+            self.check_exist_in_page(text)
 
     #登录失败校验
     def check_exist_failmsg(self):
         list = ["无效证书"]
         for text in  list:
-            TestCase().assertTrue(text in self.driver.page_source)
+            self.check_exist_in_page(text)
 
 
 

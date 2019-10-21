@@ -11,8 +11,8 @@ class HomePage(BasePage):
     _name='xpath://p[@class="user_box"]//span[1]'
     _loginout_button='xpath://span[text()="退出"]'
 
-    def __init__(self, driver, url=None):
-        BasePage.__init__(self, driver, url)
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
 
     '''元素定位层'''
     #获取用户名元素

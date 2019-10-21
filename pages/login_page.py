@@ -9,7 +9,8 @@ class LoginPage(BasePage):
     _password="name:password"
     _login_botton="xpath://input[@value='登入']"
 
-
+    def __init__(self, driver):
+        BasePage.__init__(self, driver)
     '''
     元素定位层
     '''

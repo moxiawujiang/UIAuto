@@ -60,7 +60,7 @@ class BasePage:
     #打开网址
     def visit_url(self,url=None):
         if url==None:
-            url='http://172.16.63.20/dashboard/auth/login/'
+            url='........'
         else:
             url=url
         self.driver.get(url)

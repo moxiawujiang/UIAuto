@@ -4,49 +4,20 @@ from selenium.webdriver.common.by import  By
 from selenium.webdriver.support import  expected_conditions as EC
 from  selenium.webdriver.support.ui import WebDriverWait
 from  unittest import TestCase
-from selenium import webdriver
 
 class BasePage:
     def __init__(self,driver):
         self.driver =driver
 
     #封装定位方式
-    def find_element(self,key):
-         by = key.split(':')[0]
-         by_value = key.split(":")[1]
+    def find_element(self,*args):
          try:
-            if by=='id':
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.ID,by_value)))
-            elif by=='name':
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.NAME,by_value)))
-            elif by=="classname":
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.CLASS_NAME,by_value)))
-            elif by=="xpath":
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.XPATH,by_value)))
-            elif by=="css":
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.CSS_SELECTOR,by_value)))
-            elif by=="linkname":
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.LINK_TEXT,by_value)))
-            elif by=="linktext":
-                return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located((By.PARTIAL_LINK_TEXT,by_value)))
-            else:
-                raise Exception("没有这种定位方式")
+             return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_element_located(*args))
          except Exception as e:
              raise e
-    def  find_elements(self,key):
-        by = key.split(':')[0]
-        by_value = key.split(":")[1]
+    def  find_elements(self,*loc):
         try:
-            if by == 'id':
-                return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located((By.ID, by_value)))
-            elif by == 'name':
-                return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located((By.NAME, by_value)))
-            elif by == "classname":
-                return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located((By.CLASS_NAME, by_value)))
-            elif by == "xpath":
-                return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located((By.XPATH, by_value)))
-            else:
-                raise Exception("没有这种定位方式")
+            return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located(*loc))
         except Exception as e:
             raise e
 

@@ -37,7 +37,7 @@ class LoginTest(unittest.TestCase):
     @get_screen_in_case_end_or_error
     def test_login002(self):
         self._testMethodDoc='''admin用户登录成功'''
-        LoginPage(self.driver).login('admin','longyuan!')
+        LoginPage(self.driver).login('admin','admin')
         #校验登录后的用户名
         HomePage(self.driver).check_username('admin')
         #校验登录后没有控制台权限

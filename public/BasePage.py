@@ -10,11 +10,12 @@ class BasePage:
         self.driver =driver
 
     #封装定位方式
-    def find_element(self,*args):
+    def find_element(self,*loc):
          try:
-             return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_element_located(*args))
+             return WebDriverWait(self.driver,5,0.5).until(EC.visibility_of_element_located(*loc))
          except Exception as e:
              raise e
+
     def  find_elements(self,*loc):
         try:
             return WebDriverWait(self.driver, 5, 0.5).until(EC.visibility_of_any_elements_located(*loc))
@@ -24,10 +25,17 @@ class BasePage:
     #打开网址
     def visit_url(self,url=None):
         if url==None:
-            url='。。。'
+            url='https://mail.163.com/'
         else:
             url=url
         self.driver.get(url)
+
+    #切换iframe
+    def switch_to_frame(self,id_or_name_or_element):
+        self.driver.switch_to.frame(id_or_name_or_element)
+
+    def switch_to_default(self):
+        self.driver.switch_to.default_content()
 
     '''元素操作封装 '''
     #点击元素

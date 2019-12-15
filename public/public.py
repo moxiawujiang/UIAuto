@@ -1,12 +1,12 @@
 #coding=utf-8
 __author__ = 'wujiang'
-from HTMLReport import AddImage
+from HTMLReport import addImage
 
 
 #添加截图到报告中去
 def get_screen_add_report(driver):
     image=driver.get_screenshot_as_base64()
-    AddImage(image)
+    addImage(image)
 
 
 #截图装饰器

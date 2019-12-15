@@ -8,7 +8,8 @@ import logging
 # 继承于Basepage
 class HomePage(BasePage):
     # 元素定位信息
-    _name='xpath://p[@class="user_box"]//span[1]'
+    _mail_icon='id:_mail_icon_20_96'
+    _name='id:msgboxAccountName'
     _loginout_button='xpath://span[text()="退出"]'
 
     def __init__(self, driver):
@@ -23,6 +24,9 @@ class HomePage(BasePage):
         return self.find_element(self._loginout_button)
 
     '''元素操作层'''
+    #点击用户信息显示小三角
+    def click_mail_icon(self):
+        self.click_element(self.find_element(self._mail_icon))
     #获取登录后的用户名
     def get_username_value(self):
         return self.get_element_value(self.get_username())
@@ -36,19 +40,11 @@ class HomePage(BasePage):
     '''业务层'''
     #校验用户名是否符合预期
     def check_username(self,expect):
+        self.click_mail_icon()
         actual=self.get_username_value()
         logging.info("用户名：" + actual)
         TestCase().assertEqual(actual,expect)
 
-    #校验角色权限
-    def check_user_auth(self,role):
-        list=["系统控制台",'资源','租户']
-        #1为admin角色
-        for text in list:
-            if role==1:
-                TestCase().assertTrue( text in self.driver.page_source)
-            else:
-                TestCase().assertFalse(text in self.driver.page_source)
     #封装退出流程
     def loginout(self):
         self.click_username()

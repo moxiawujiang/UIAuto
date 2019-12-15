@@ -7,7 +7,7 @@ import os
 import sys
 os.chdir(sys.path[0])
 
-
+#收集测试用例
 def create_my_suit():
     my_suit=unittest.TestSuite()
     testdir="test_case"
@@ -18,6 +18,7 @@ def create_my_suit():
     return my_suit
 
 if __name__ == '__main__':
+    #执行测试
     time=time.strftime("%y-%m-%d %H-%M-%S")
     mysuit=create_my_suit()
     runner = HTMLReport.TestRunner(report_file_name='report'+time,

@@ -17,6 +17,8 @@ def create_my_suit():
             my_suit.addTest(test_case)
     return my_suit
 
+
+
 if __name__ == '__main__':
     #执行测试
     time=time.strftime("%y-%m-%d %H-%M-%S")
